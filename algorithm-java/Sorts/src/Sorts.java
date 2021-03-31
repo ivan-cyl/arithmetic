@@ -7,7 +7,7 @@ public class Sorts {
         }
         for (int i = 0; i < n; i++) {
             boolean flag = false;
-            for (int j = 0; j < n - 1; j++) {
+            for (int j = 0; j < n - i - 1; j++) {
                 if (a[j] > a[j + 1]) {
                     int temp = a[j];
                     a[j] = a[j + 1];
@@ -82,7 +82,7 @@ public class Sorts {
 
     public static void main(String[] args) {
         int[] array = new int[]{3, 4, 2, 1, 5, 6, 7, 8};
-        bubbleSort2(array,array.length);
+        bubbleSort2(array, array.length);
         System.out.println(Arrays.toString(array));
     }
 }
