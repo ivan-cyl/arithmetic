@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Sorts1 {
     public static void bubbleSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -173,6 +175,120 @@ public class Sorts1 {
         if (left >= right) {
             return;
         }
-        int q =
+        int q = partition2(arr, left, right);
+        quickSort(arr, left, right);
+        quickSort(arr, q + 1, right);
+    }
+
+    private static void quickSort3(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int l = left;
+        int r = right;
+        int k = left + 1;
+        int pivot = arr[l];
+        while (k <= r) {
+            if (arr[k] < pivot) {
+                int tmp = arr[l];
+                arr[l] = arr[k];
+                arr[k] = arr[tmp];
+                l++;
+                k++;
+            } else if (arr[r] == pivot) {
+                k++;
+            } else {
+                if (arr[r] > pivot) {
+                    r--;
+                } else if (arr[r] == pivot) {
+                    int tmp = arr[k];
+                    arr[k] = arr[r];
+                    arr[r] = tmp;
+                    k++;
+                    r--;
+                } else {
+                    int tmp = arr[l];
+                    arr[l] = arr[r];
+                    arr[r] = arr[k];
+                    arr[k] = tmp;
+                    l++;
+                    k++;
+                    r--;
+                }
+            }
+        }
+        quickSort(arr, left, l - 1);
+        quickSort(arr, r + 1, right);
+    }
+
+    private static void quickSort4(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int l = left;
+        int k = left + 1;
+        int r = right;
+        if (arr[l] > arr[r]) {
+            int tmp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = tmp;
+        }
+        int pivot1 = arr[l];
+        int pivot2 = arr[r];
+        while (k < r) {
+            if (arr[k] < pivot1) {
+                l++;
+                if (l != k) {
+                    int tmp = arr[l];
+                    arr[l] = arr[k];
+                    arr[k] = tmp;
+                }
+                k++;
+            } else if (arr[k] >= pivot1 && arr[r] <= pivot2) {
+                k++;
+            } else {
+                --r;
+                if (arr[r] > pivot2) {
+
+                } else if (arr[r] >= pivot1 && arr[r] <= pivot2) {
+                    int tmp = arr[k];
+                    arr[k] = arr[r];
+                    arr[r] = tmp;
+                    k++;
+                } else {
+                    l++;
+                    int tmp = arr[l];
+                    arr[l] = arr[r];
+                    arr[r] = arr[k];
+                    arr[k] = tmp;
+                    k++;
+                }
+            }
+        }
+        arr[left] = arr[l];
+        arr[l] = pivot1;
+        arr[right] = arr[r];
+        arr[r] = pivot2;
+        quickSort(arr, left, l - 1);
+        quickSort(arr, l + 1, r - l);
+        quickSort(arr, r + 1, right);
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 1, 5, 6, 8, 4, 12, 11, 13, 15, 7, 9, 0, -1};
+        bubbleSort(arr);
+        bubbleSort2(arr);
+        selectSort(arr);
+        mergeSort(arr, 0, arr.length - 1);
+        quickSort(arr, 0, arr.length - 1);
+        Arrays.sort(arr);
+        print(arr);
+    }
+
+    public static void print(int[] arr) {
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 }
